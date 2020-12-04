@@ -27,5 +27,5 @@ export const LinearGradientStyled = styled(LinearGradient).attrs(() => ({
 export const IconStyled = styled(Icon).attrs(() => ({
   size: 24,
   color: '#fff',
-  name: 'volume-mute-outline',
+  name: 'notifications-off-outline',
 }))``;

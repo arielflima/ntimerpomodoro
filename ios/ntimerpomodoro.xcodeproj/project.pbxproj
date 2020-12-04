@@ -32,6 +32,9 @@
 		8118111C611B44A5A1EC63FE /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B44D5F71472F4A84AFFB0FA1 /* Octicons.ttf */; };
 		FF4F2291606F423C9EADC437 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 972B1CE3A1D5458D9BC9B13F /* SimpleLineIcons.ttf */; };
 		3B38CE32101F41BEB2251BDD /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82F4912773774AD69EABFE01 /* Zocial.ttf */; };
+		A91C74F2F5B24D39A521F6A7 /* Padauk-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A15209A704BC89CA62A45 /* Padauk-Bold.ttf */; };
+		EA864A027FDA46A386DA85A5 /* Padauk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B51DCE60184B4A9895C3E6AF /* Padauk-Regular.ttf */; };
+		509640732B7B444D8AC81A6D /* NerkoOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83A82E8168594A8B9EBCC284 /* NerkoOne-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +86,9 @@
 		B44D5F71472F4A84AFFB0FA1 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		972B1CE3A1D5458D9BC9B13F /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		82F4912773774AD69EABFE01 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E8A15209A704BC89CA62A45 /* Padauk-Bold.ttf */ = {isa = PBXFileReference; name = "Padauk-Bold.ttf"; path = "../src/assets/fonts/Padauk-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B51DCE60184B4A9895C3E6AF /* Padauk-Regular.ttf */ = {isa = PBXFileReference; name = "Padauk-Regular.ttf"; path = "../src/assets/fonts/Padauk-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		83A82E8168594A8B9EBCC284 /* NerkoOne-Regular.ttf */ = {isa = PBXFileReference; name = "NerkoOne-Regular.ttf"; path = "../src/assets/fonts/NerkoOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +215,9 @@
 				B44D5F71472F4A84AFFB0FA1 /* Octicons.ttf */,
 				972B1CE3A1D5458D9BC9B13F /* SimpleLineIcons.ttf */,
 				82F4912773774AD69EABFE01 /* Zocial.ttf */,
+				9E8A15209A704BC89CA62A45 /* Padauk-Bold.ttf */,
+				B51DCE60184B4A9895C3E6AF /* Padauk-Regular.ttf */,
+				83A82E8168594A8B9EBCC284 /* NerkoOne-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -368,6 +377,9 @@
 				8118111C611B44A5A1EC63FE /* Octicons.ttf in Resources */,
 				FF4F2291606F423C9EADC437 /* SimpleLineIcons.ttf in Resources */,
 				3B38CE32101F41BEB2251BDD /* Zocial.ttf in Resources */,
+				A91C74F2F5B24D39A521F6A7 /* Padauk-Bold.ttf in Resources */,
+				EA864A027FDA46A386DA85A5 /* Padauk-Regular.ttf in Resources */,
+				509640732B7B444D8AC81A6D /* NerkoOne-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

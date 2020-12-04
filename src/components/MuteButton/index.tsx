@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, LinearGradientStyled, IconStyled } from './styles';
 
-const RoundButton: React.FC = () => {
+const MuteButton: React.FC = () => {
   return (
     <Container>
       <LinearGradientStyled>
@@ -12,4 +12,4 @@ const RoundButton: React.FC = () => {
   );
 };
 
-export default RoundButton;
+export default MuteButton;

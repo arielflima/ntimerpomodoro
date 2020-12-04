@@ -26,7 +26,6 @@ export const Title = styled.Text`
   text-align: center;
   top: 67px;
   font-size: 32px;
-  color: #fff;
-  font-weight: 500;
-  font-family: 'Padauk', sans-serif;
+  color: #9299c2;
+  font-weight: 300;
 `;
