@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Container,
   LinearGradientStyled,
@@ -9,15 +9,22 @@ import {
   TextStyledInside,
 } from './styles';
 
-const Timer: React.FC = () => {
+interface ITimerProps {
+  minutes: number;
+  seconds: number;
+}
+
+const Timer: React.FC<ITimerProps> = ({ minutes = 0, seconds = 0 }) => {
   return (
     <Container>
       <LinearGradientStyled>
         <CircleAnimated>
           <LinearGradientStyledChildrenBorder>
             <LinearGradientStyledChildren>
-              <TextStyled>19</TextStyled>
-              <TextStyledInside>minutes</TextStyledInside>
+              <TextStyled>
+                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+              </TextStyled>
+              {/* <TextStyledInside>minutes</TextStyledInside> */}
             </LinearGradientStyledChildren>
           </LinearGradientStyledChildrenBorder>
         </CircleAnimated>

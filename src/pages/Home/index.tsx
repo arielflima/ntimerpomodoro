@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Container, LinearGradientStyled, Title } from './styles';
 
 import MuteButton from '../../components/MuteButton';
@@ -8,13 +8,16 @@ import PlayStopToggleButton from '../../components/PlayStopToggleButton';
 import PomodoroJobs from '../../components/PomodoroJobs/index';
 
 const Home: React.FC = () => {
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+
   return (
     <Container>
       <LinearGradientStyled>
         <MuteButton />
         <Title>Pomodoro</Title>
         <ScheduleButton />
-        <Timer />
+        <Timer minutes={minutes} seconds={seconds} />
         <PomodoroJobs />
         <PlayStopToggleButton />
       </LinearGradientStyled>

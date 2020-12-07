@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, LinearGradientStyled, IconStyled } from './styles';
 
-const MuteButton: React.FC = () => {
+const PlayStopToggleButton: React.FC = () => {
   return (
     <Container>
       <LinearGradientStyled>
@@ -12,4 +12,4 @@ const MuteButton: React.FC = () => {
   );
 };
 
-export default MuteButton;
+export default PlayStopToggleButton;
