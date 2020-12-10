@@ -6,15 +6,39 @@ import {
   LinearGradientStyledChildrenBorder,
   LinearGradientStyledChildren,
   TextStyled,
-  TextStyledInside,
+  ContainerPomodoro,
+  TextStyledPomodoro,
+  DotsBar,
+  Dot,
+  ContainerPlayStopToggleButton,
+  LinearGradientStyledPlayStopToggleButton,
+  IconStyled,
 } from './styles';
 
-interface ITimerProps {
-  minutes: number;
-  seconds: number;
-}
+import PlayStopToggleButton from '../PlayStopToggleButton';
 
-const Timer: React.FC<ITimerProps> = ({ minutes = 0, seconds = 0 }) => {
+const Timer: React.FC = () => {
+  const [seconds, setSeconds] = useState(10);
+  const [minutes, setMinutes] = useState(1);
+
+  const handlePlay = useCallback((secondsPlay, minutesPlay) => {
+    const intervalTimer = setInterval(() => {
+      secondsPlay--;
+      setSeconds(secondsPlay);
+
+      if (secondsPlay === 0) {
+        if (minutesPlay === 0) {
+          clearInterval(intervalTimer);
+        } else {
+          minutesPlay--;
+          secondsPlay = 59;
+          setSeconds(secondsPlay);
+          setMinutes(minutesPlay);
+        }
+      }
+    }, 1000);
+  }, []);
+
   return (
     <Container>
       <LinearGradientStyled>
@@ -24,11 +48,25 @@ const Timer: React.FC<ITimerProps> = ({ minutes = 0, seconds = 0 }) => {
               <TextStyled>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
               </TextStyled>
-              {/* <TextStyledInside>minutes</TextStyledInside> */}
             </LinearGradientStyledChildren>
           </LinearGradientStyledChildrenBorder>
         </CircleAnimated>
       </LinearGradientStyled>
+      <ContainerPomodoro>
+        <TextStyledPomodoro>Work</TextStyledPomodoro>
+        <DotsBar>
+          <Dot />
+          <Dot />
+          <Dot />
+        </DotsBar>
+      </ContainerPomodoro>
+      <ContainerPlayStopToggleButton
+        onPress={() => handlePlay(seconds, minutes)}>
+        <LinearGradientStyledPlayStopToggleButton>
+          <IconStyled />
+        </LinearGradientStyledPlayStopToggleButton>
+      </ContainerPlayStopToggleButton>
+      <PlayStopToggleButton />
     </Container>
   );
 };
