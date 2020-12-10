@@ -18,10 +18,14 @@ import {
 import PlayStopToggleButton from '../PlayStopToggleButton';
 
 const Timer: React.FC = () => {
-  const [seconds, setSeconds] = useState(10);
-  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(2);
+  const [minutes, setMinutes] = useState(0);
 
   const handlePlay = useCallback((secondsPlay, minutesPlay) => {
+    if (!secondsPlay && !minutesPlay) {
+      return;
+    }
+
     const intervalTimer = setInterval(() => {
       secondsPlay--;
       setSeconds(secondsPlay);
