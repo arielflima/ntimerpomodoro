@@ -131,10 +131,12 @@ export const ContainerPlayStopToggleButton = styled.TouchableHighlight`
   position: absolute;
   top: 430px;
   left: 115px;
-  elevation: 20;
+
   width: 64px;
   height: 64px;
   border-radius: 21px;
+
+  elevation: 20;
 `;
 
 export const LinearGradientStyledPlayStopToggleButton = styled(
@@ -154,5 +156,4 @@ export const LinearGradientStyledPlayStopToggleButton = styled(
 export const IconStyled = styled(Icon).attrs(() => ({
   size: 36,
   color: '#9299c2',
-  name: 'play-outline',
 }))``;

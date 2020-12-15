@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
   Container,
   LinearGradientStyled,
@@ -18,30 +18,42 @@ import {
 import PlayStopToggleButton from '../PlayStopToggleButton';
 
 const Timer: React.FC = () => {
-  const [seconds, setSeconds] = useState(2);
-  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(3);
+  const [minutes, setMinutes] = useState(1);
+  const [countdownToggle, setCountdownToggle] = useState(false);
+  const intervalId = useRef(null);
 
-  const handlePlay = useCallback((secondsPlay, minutesPlay) => {
-    if (!secondsPlay && !minutesPlay) {
-      return;
-    }
+  const handleStart = useCallback(
+    (secondsPlay: number = seconds, minutesPlay: number = minutes) => {
+      setCountdownToggle(!countdownToggle);
 
-    const intervalTimer = setInterval(() => {
-      secondsPlay--;
-      setSeconds(secondsPlay);
+      const intervalofinterval = setInterval(() => {
+        if (secondsPlay || minutesPlay) {
+          secondsPlay--;
+          setSeconds(secondsPlay);
+        }
 
-      if (secondsPlay === 0) {
-        if (minutesPlay === 0) {
-          clearInterval(intervalTimer);
-        } else {
-          minutesPlay--;
+        if (secondsPlay < 0 && minutesPlay) {
           secondsPlay = 59;
           setSeconds(secondsPlay);
+          minutesPlay--;
           setMinutes(minutesPlay);
         }
-      }
-    }, 1000);
-  }, []);
+
+        if (!secondsPlay && !minutesPlay) {
+          clearInterval(intervalofinterval);
+        }
+      }, 1000);
+
+      intervalId.current = intervalofinterval;
+    },
+    [minutes, seconds, countdownToggle, intervalId],
+  );
+
+  const handleStop = useCallback(() => {
+    clearInterval(intervalId.current);
+    setCountdownToggle(!countdownToggle);
+  }, [countdownToggle]);
 
   return (
     <Container>
@@ -65,11 +77,16 @@ const Timer: React.FC = () => {
         </DotsBar>
       </ContainerPomodoro>
       <ContainerPlayStopToggleButton
-        onPress={() => handlePlay(seconds, minutes)}>
+        onPress={() => (!countdownToggle ? handleStart() : handleStop())}>
         <LinearGradientStyledPlayStopToggleButton>
-          <IconStyled />
+          {!countdownToggle ? (
+            <IconStyled name="play-outline" />
+          ) : (
+            <IconStyled name="pause-outline" />
+          )}
         </LinearGradientStyledPlayStopToggleButton>
       </ContainerPlayStopToggleButton>
+
       <PlayStopToggleButton />
     </Container>
   );
