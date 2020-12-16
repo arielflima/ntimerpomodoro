@@ -29,3 +29,65 @@ export const Title = styled.Text`
   color: #9299c2;
   font-weight: 300;
 `;
+
+export const ModalInside = styled.View`
+  width: 350px;
+  height: 500px;
+  background-color: #fff;
+  elevation: 5;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 55px;
+
+  overflow: hidden;
+
+  align-self: center;
+  position: absolute;
+  top: 150px;
+`;
+
+export const ModalInsideLinearGradient = styled(LinearGradient).attrs(() => ({
+  colors: ['#494F74', '#3A3F5E'],
+  useAngle: true,
+  angle: 116.82,
+  angleCenter: { x: 0.5, y: 0.5 },
+}))`
+  flex: 1;
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalInsideTitle = styled.Text`
+  font-size: 26px;
+  color: red;
+`;
+
+export const CloseButton = styled.TouchableHighlight`
+  background-color: red;
+  width: 80px;
+  height: 40px;
+
+  top: 50px;
+
+  overflow: hidden;
+
+  border-radius: 55px;
+
+  elevation: 4;
+`;
+
+export const CloseButtonLinearGradient = styled(LinearGradient).attrs(() => ({
+  colors: ['#424869', '#4A5178'],
+  useAngle: true,
+  angle: 135,
+}))`
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+`;
