@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   Container,
   LinearGradientStyled,
@@ -16,44 +16,64 @@ import {
 } from './styles';
 
 import PlayStopToggleButton from '../PlayStopToggleButton';
+import { setConstantValue } from 'typescript';
 
-const Timer: React.FC = () => {
-  const [seconds, setSeconds] = useState(3);
-  const [minutes, setMinutes] = useState(1);
+interface ITimerProps {
+  minutesConcentration: number;
+}
+
+const Timer: React.FC<ITimerProps> = ({ minutesConcentration = 0 }) => {
+  const [seconds, setSeconds] = useState(5);
+  const [minutes, setMinutes] = useState(0);
   const [countdownToggle, setCountdownToggle] = useState(false);
   const intervalId = useRef(null);
 
+  useEffect(() => {
+    setMinutes(minutesConcentration);
+  }, [minutesConcentration]);
+
   const handleStart = useCallback(
     (secondsPlay: number = seconds, minutesPlay: number = minutes) => {
-      setCountdownToggle(!countdownToggle);
+      setCountdownToggle(true);
 
       const intervalofinterval = setInterval(() => {
+        if (!secondsPlay && !minutesPlay) {
+          setCountdownToggle(false);
+          clearInterval(intervalofinterval);
+        }
         if (secondsPlay || minutesPlay) {
           secondsPlay--;
           setSeconds(secondsPlay);
-        }
-
-        if (secondsPlay < 0 && minutesPlay) {
-          secondsPlay = 59;
-          setSeconds(secondsPlay);
-          minutesPlay--;
-          setMinutes(minutesPlay);
-        }
-
-        if (!secondsPlay && !minutesPlay) {
-          clearInterval(intervalofinterval);
+          if (secondsPlay < 0 && minutesPlay) {
+            secondsPlay = 59;
+            setSeconds(secondsPlay);
+            minutesPlay--;
+            setMinutes(minutesPlay);
+          }
         }
       }, 1000);
 
       intervalId.current = intervalofinterval;
     },
-    [minutes, seconds, countdownToggle, intervalId],
+    [minutes, seconds, intervalId],
   );
 
   const handleStop = useCallback(() => {
     clearInterval(intervalId.current);
-    setCountdownToggle(!countdownToggle);
-  }, [countdownToggle]);
+    setCountdownToggle(false);
+  }, []);
+
+  const handleToggleButton = useCallback(() => {
+    if (!minutes && !seconds) {
+      return;
+    }
+
+    if (!countdownToggle) {
+      handleStart();
+    } else {
+      handleStop();
+    }
+  }, [minutes, seconds, countdownToggle, handleStart, handleStop]);
 
   return (
     <Container>
@@ -76,8 +96,7 @@ const Timer: React.FC = () => {
           <Dot />
         </DotsBar>
       </ContainerPomodoro>
-      <ContainerPlayStopToggleButton
-        onPress={() => (!countdownToggle ? handleStart() : handleStop())}>
+      <ContainerPlayStopToggleButton onPress={handleToggleButton}>
         <LinearGradientStyledPlayStopToggleButton>
           {!countdownToggle ? (
             <IconStyled name="play-outline" />
