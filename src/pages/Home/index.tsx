@@ -11,10 +11,19 @@ const Home: React.FC = () => {
   const [minutesConcentration, setMinutesConcentration] = useState(1);
   const [minutesInterval, setMinutesInterval] = useState(5);
   const [numberTimes, setNumberTimes] = useState(3);
+  const [countdownToggle, setCountdownToggle] = useState(false);
+
+  const handleCountdownToggle = useCallback((state) => {
+    setCountdownToggle(state);
+  }, []);
 
   const handleVisibleModel = useCallback(() => {
+    if (countdownToggle) {
+      return;
+    }
+
     setModalVisible(!modalVisible);
-  }, [modalVisible]);
+  }, [modalVisible, countdownToggle]);
 
   const handleChangeMinutesConcentration = useCallback((minutes = 0) => {
     setMinutesConcentration(minutes);
@@ -47,6 +56,7 @@ const Home: React.FC = () => {
         <Timer
           minutesConcentration={minutesConcentration}
           numberTimes={numberTimes}
+          changeCountdownToggleFunction={handleCountdownToggle}
         />
       </LinearGradientStyled>
     </Container>

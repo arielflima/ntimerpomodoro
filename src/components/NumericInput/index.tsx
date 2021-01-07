@@ -27,7 +27,7 @@ const NumericInput: React.FC<INumericInputProps> = ({
       <ContainerButtonsUpDown>
         <IncreaseDecreaseButton
           onPress={() => {
-            if (number >= 0) {
+            if (number > 0) {
               changeFunction(number + 1);
             } else {
               return;
@@ -37,7 +37,7 @@ const NumericInput: React.FC<INumericInputProps> = ({
         </IncreaseDecreaseButton>
         <IncreaseDecreaseButton
           onPress={() => {
-            if (number > 0) {
+            if (number > 1) {
               changeFunction(number - 1);
             } else {
               return;

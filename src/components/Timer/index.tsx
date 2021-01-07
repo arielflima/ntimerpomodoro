@@ -20,11 +20,13 @@ import PlayStopToggleButton from '../PlayStopToggleButton';
 interface ITimerProps {
   minutesConcentration: number;
   numberTimes: number;
+  changeCountdownToggleFunction(boolean): void;
 }
 
 const Timer: React.FC<ITimerProps> = ({
   minutesConcentration = 0,
   numberTimes = 1,
+  changeCountdownToggleFunction,
 }) => {
   const [seconds, setSeconds] = useState(5);
   const [minutes, setMinutes] = useState(0);
@@ -49,10 +51,12 @@ const Timer: React.FC<ITimerProps> = ({
   const handleStart = useCallback(
     (secondsPlay: number = seconds, minutesPlay: number = minutes) => {
       setCountdownToggle(true);
+      changeCountdownToggleFunction(true);
 
       const intervalofinterval = setInterval(() => {
         if (!secondsPlay && !minutesPlay) {
           setCountdownToggle(false);
+          changeCountdownToggleFunction(false);
           clearInterval(intervalofinterval);
         }
         if (secondsPlay || minutesPlay) {
@@ -69,13 +73,14 @@ const Timer: React.FC<ITimerProps> = ({
 
       intervalId.current = intervalofinterval;
     },
-    [minutes, seconds, intervalId],
+    [minutes, seconds, intervalId, changeCountdownToggleFunction],
   );
 
   const handleStop = useCallback(() => {
     clearInterval(intervalId.current);
     setCountdownToggle(false);
-  }, []);
+    changeCountdownToggleFunction(false);
+  }, [changeCountdownToggleFunction]);
 
   const handleToggleButton = useCallback(() => {
     if (!minutes && !seconds) {
