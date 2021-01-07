@@ -16,21 +16,35 @@ import {
 } from './styles';
 
 import PlayStopToggleButton from '../PlayStopToggleButton';
-import { setConstantValue } from 'typescript';
 
 interface ITimerProps {
   minutesConcentration: number;
+  numberTimes: number;
 }
 
-const Timer: React.FC<ITimerProps> = ({ minutesConcentration = 0 }) => {
+const Timer: React.FC<ITimerProps> = ({
+  minutesConcentration = 0,
+  numberTimes = 1,
+}) => {
   const [seconds, setSeconds] = useState(5);
   const [minutes, setMinutes] = useState(0);
   const [countdownToggle, setCountdownToggle] = useState(false);
   const intervalId = useRef(null);
+  const [barForDots, setBarForDots] = useState([]);
 
   useEffect(() => {
     setMinutes(minutesConcentration);
-  }, [minutesConcentration]);
+
+    const dotsToBar = [];
+    let i = 0;
+
+    while (i < numberTimes) {
+      dotsToBar.push(<Dot key={i} />);
+      i++;
+    }
+
+    setBarForDots(dotsToBar);
+  }, [minutesConcentration, numberTimes]);
 
   const handleStart = useCallback(
     (secondsPlay: number = seconds, minutesPlay: number = minutes) => {
@@ -90,11 +104,7 @@ const Timer: React.FC<ITimerProps> = ({ minutesConcentration = 0 }) => {
       </LinearGradientStyled>
       <ContainerPomodoro>
         <TextStyledPomodoro>Work</TextStyledPomodoro>
-        <DotsBar>
-          <Dot />
-          <Dot />
-          <Dot />
-        </DotsBar>
+        <DotsBar>{barForDots}</DotsBar>
       </ContainerPomodoro>
       <ContainerPlayStopToggleButton onPress={handleToggleButton}>
         <LinearGradientStyledPlayStopToggleButton>

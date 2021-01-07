@@ -44,7 +44,10 @@ const Home: React.FC = () => {
           changeMinutesIntervalFunction={handleChangeMinutesInterval}
           changeNumberTimesFunction={handleChangeNumberTimes}
         />
-        <Timer minutesConcentration={minutesConcentration} />
+        <Timer
+          minutesConcentration={minutesConcentration}
+          numberTimes={numberTimes}
+        />
       </LinearGradientStyled>
     </Container>
   );
