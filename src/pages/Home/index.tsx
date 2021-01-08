@@ -8,8 +8,8 @@ import ModalSettings from '../../components/ModalSettings';
 
 const Home: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [minutesConcentration, setMinutesConcentration] = useState(1);
-  const [minutesInterval, setMinutesInterval] = useState(5);
+  const [minutesConcentration, setMinutesConcentration] = useState(2);
+  const [minutesInterval, setMinutesInterval] = useState(1);
   const [numberTimes, setNumberTimes] = useState(3);
   const [countdownToggle, setCountdownToggle] = useState(false);
 
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
   return (
     <Container>
       <LinearGradientStyled>
-        <MuteButton />
+        {/* <MuteButton /> */}
         <Title>Pomodoro</Title>
         <SettingsButton onPressFunction={handleVisibleModel} />
         <ModalSettings
@@ -54,6 +54,7 @@ const Home: React.FC = () => {
           changeNumberTimesFunction={handleChangeNumberTimes}
         />
         <Timer
+          minutesInterval={minutesInterval}
           minutesConcentration={minutesConcentration}
           numberTimes={numberTimes}
           changeCountdownToggleFunction={handleCountdownToggle}

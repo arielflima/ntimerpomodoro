@@ -18,21 +18,24 @@ import {
 import PlayStopToggleButton from '../PlayStopToggleButton';
 
 interface ITimerProps {
+  minutesInterval: number;
   minutesConcentration: number;
   numberTimes: number;
-  changeCountdownToggleFunction(boolean): void;
+  changeCountdownToggleFunction(state: boolean): void;
 }
 
 const Timer: React.FC<ITimerProps> = ({
-  minutesConcentration = 0,
+  minutesInterval = 5,
+  minutesConcentration = 25,
   numberTimes = 1,
   changeCountdownToggleFunction,
 }) => {
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [countdownToggle, setCountdownToggle] = useState(false);
   const intervalId = useRef(null);
   const [barForDots, setBarForDots] = useState([]);
+  const [isInterval, setIsInterval] = useState(false);
 
   useEffect(() => {
     setMinutes(minutesConcentration);
@@ -49,17 +52,43 @@ const Timer: React.FC<ITimerProps> = ({
   }, [minutesConcentration, numberTimes]);
 
   const handleStart = useCallback(
-    (secondsPlay: number = seconds, minutesPlay: number = minutes) => {
+    (
+      secondsPlay: number = seconds,
+      minutesPlay: number = minutes,
+      isIntervalInside: boolean = isInterval,
+      countdownToggleInside: boolean = false,
+    ) => {
       setCountdownToggle(true);
+      countdownToggleInside = true;
       changeCountdownToggleFunction(true);
 
       const intervalofinterval = setInterval(() => {
-        if (!secondsPlay && !minutesPlay) {
+        if (isIntervalInside && !secondsPlay && !minutesPlay) {
           setCountdownToggle(false);
+          countdownToggleInside = false;
           changeCountdownToggleFunction(false);
+          setIsInterval(false);
+          isIntervalInside = false;
+          secondsPlay = 0;
+          setSeconds(secondsPlay);
+          minutesPlay = minutesConcentration;
+          setMinutes(minutesPlay);
           clearInterval(intervalofinterval);
         }
-        if (secondsPlay || minutesPlay) {
+
+        if (!isIntervalInside && !secondsPlay && !minutesPlay) {
+          setCountdownToggle(false);
+          countdownToggleInside = false;
+          changeCountdownToggleFunction(false);
+          setIsInterval(true);
+          isIntervalInside = true;
+          secondsPlay = 0;
+          setSeconds(secondsPlay);
+          minutesPlay = minutesInterval;
+          setMinutes(minutesPlay);
+          clearInterval(intervalofinterval);
+        }
+        if (secondsPlay || (minutesPlay && countdownToggleInside)) {
           secondsPlay--;
           setSeconds(secondsPlay);
           if (secondsPlay < 0 && minutesPlay) {
@@ -73,7 +102,14 @@ const Timer: React.FC<ITimerProps> = ({
 
       intervalId.current = intervalofinterval;
     },
-    [minutes, seconds, intervalId, changeCountdownToggleFunction],
+    [
+      minutes,
+      seconds,
+      intervalId,
+      changeCountdownToggleFunction,
+      minutesInterval,
+      minutesConcentration,
+    ],
   );
 
   const handleStop = useCallback(() => {
