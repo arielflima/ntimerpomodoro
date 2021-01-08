@@ -34,12 +34,23 @@ export const CircleAnimated = styled.TouchableHighlight`
 `;
 
 export const LinearGradientStyledChildrenBorder = styled(LinearGradient).attrs(
-  () => ({
-    colors: ['#612ff5', '#855CFF'],
-    useAngle: true,
-    angle: 116.82,
-    angleCenter: { x: 0.5, y: 0.5 },
-  }),
+  ({ isInterval }) => {
+    if (!isInterval) {
+      return {
+        colors: ['#612ff5', '#855CFF'],
+        useAngle: true,
+        angle: 116.82,
+        angleCenter: { x: 0.5, y: 0.5 },
+      };
+    } else {
+      return {
+        colors: ['#FFAA5C', '#F29239'],
+        useAngle: true,
+        angle: 116.82,
+        angleCenter: { x: 0.5, y: 0.5 },
+      };
+    }
+  },
 )`
   display: flex;
   flex: 1;
@@ -51,14 +62,14 @@ export const LinearGradientStyledChildrenBorder = styled(LinearGradient).attrs(
   border-radius: 200px;
 `;
 
-export const LinearGradientStyledChildren = styled(LinearGradient).attrs(
-  () => ({
+export const LinearGradientStyledChildren = styled(LinearGradient).attrs(() => {
+  return {
     colors: ['#424869', '#4A5178'],
     useAngle: true,
     angle: 116.82,
     angleCenter: { x: 0.5, y: 0.5 },
-  }),
-)`
+  };
+})`
   display: flex;
 
   width: 94%;
@@ -108,8 +119,37 @@ export const DotsBar = styled.View`
   flex-direction: row;
 `;
 
-export const Dot = styled(LinearGradient).attrs(() => ({
-  colors: ['#612FF5', '#855CFF'],
+export const Dot = styled(LinearGradient).attrs(({ isInterval }) => {
+  if (!isInterval) {
+    return {
+      colors: ['#612FF5', '#855CFF'],
+      useAngle: true,
+      angle: 135,
+    };
+  } else {
+    return {
+      colors: ['#FFAA5C', '#F29239'],
+      useAngle: true,
+      angle: 135,
+    };
+  }
+})`
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-radius: 22px;
+
+  width: 12px;
+  height: 12px;
+
+  elevation: 10;
+
+  margin-left: 10px;
+`;
+
+export const DotVoid = styled(LinearGradient).attrs(() => ({
+  colors: ['#4F567F', '#2A304A'],
   useAngle: true,
   angle: 135,
 }))`

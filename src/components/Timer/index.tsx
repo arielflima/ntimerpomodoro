@@ -10,6 +10,7 @@ import {
   TextStyledPomodoro,
   DotsBar,
   Dot,
+  DotVoid,
   ContainerPlayStopToggleButton,
   LinearGradientStyledPlayStopToggleButton,
   IconStyled,
@@ -36,39 +37,59 @@ const Timer: React.FC<ITimerProps> = ({
   const intervalId = useRef(null);
   const [barForDots, setBarForDots] = useState([]);
   const [isInterval, setIsInterval] = useState(false);
+  const [countWork, setCountWork] = useState(1);
 
   useEffect(() => {
     setMinutes(minutesConcentration);
 
     const dotsToBar = [];
     let i = 0;
+    let t = 0;
 
     while (i < numberTimes) {
-      dotsToBar.push(<Dot key={i} />);
+      while (t < countWork) {
+        dotsToBar.push(<Dot isInterval={isInterval} key={`${t}Full`} />);
+        t++;
+        numberTimes--;
+      }
+
+      if (numberTimes) {
+        dotsToBar.push(<DotVoid key={`${i}Void`} />);
+      }
+
       i++;
     }
 
     setBarForDots(dotsToBar);
-  }, [minutesConcentration, numberTimes]);
+  }, [minutesConcentration, numberTimes, countWork, isInterval]);
 
   const handleStart = useCallback(
     (
       secondsPlay: number = seconds,
       minutesPlay: number = minutes,
       isIntervalInside: boolean = isInterval,
-      countdownToggleInside: boolean = false,
+      countdownToggleInside: boolean = countdownToggle,
+      countWorkInside: number = countWork,
     ) => {
       setCountdownToggle(true);
       countdownToggleInside = true;
       changeCountdownToggleFunction(true);
 
       const intervalofinterval = setInterval(() => {
-        if (isIntervalInside && !secondsPlay && !minutesPlay) {
+        if (
+          countdownToggleInside &&
+          isIntervalInside &&
+          !secondsPlay &&
+          !minutesPlay
+        ) {
+          console.log('passei aqui no fim do intervalo');
           setCountdownToggle(false);
           countdownToggleInside = false;
           changeCountdownToggleFunction(false);
           setIsInterval(false);
           isIntervalInside = false;
+          countWorkInside++;
+          setCountWork(countWorkInside);
           secondsPlay = 0;
           setSeconds(secondsPlay);
           minutesPlay = minutesConcentration;
@@ -76,7 +97,13 @@ const Timer: React.FC<ITimerProps> = ({
           clearInterval(intervalofinterval);
         }
 
-        if (!isIntervalInside && !secondsPlay && !minutesPlay) {
+        if (
+          countdownToggleInside &&
+          !isIntervalInside &&
+          !secondsPlay &&
+          !minutesPlay
+        ) {
+          console.log('passei aqui no fim do trabalho');
           setCountdownToggle(false);
           countdownToggleInside = false;
           changeCountdownToggleFunction(false);
@@ -109,6 +136,9 @@ const Timer: React.FC<ITimerProps> = ({
       changeCountdownToggleFunction,
       minutesInterval,
       minutesConcentration,
+      isInterval,
+      countdownToggle,
+      countWork,
     ],
   );
 
@@ -134,7 +164,7 @@ const Timer: React.FC<ITimerProps> = ({
     <Container>
       <LinearGradientStyled>
         <CircleAnimated>
-          <LinearGradientStyledChildrenBorder>
+          <LinearGradientStyledChildrenBorder isInterval={isInterval}>
             <LinearGradientStyledChildren>
               <TextStyled>
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
@@ -144,7 +174,9 @@ const Timer: React.FC<ITimerProps> = ({
         </CircleAnimated>
       </LinearGradientStyled>
       <ContainerPomodoro>
-        <TextStyledPomodoro>Work</TextStyledPomodoro>
+        <TextStyledPomodoro>
+          {!isInterval ? 'Work' : 'Break'}
+        </TextStyledPomodoro>
         <DotsBar>{barForDots}</DotsBar>
       </ContainerPomodoro>
       <ContainerPlayStopToggleButton onPress={handleToggleButton}>
