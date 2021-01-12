@@ -24,7 +24,6 @@ interface ITimerProps {
   numberTimes: number;
   changeCountdownToggleFunction(state: boolean): void;
   changeMinutesConcentrationFunction(minutes: number): void;
-  changeRefreshButtonFunction(): void;
 }
 
 const Timer: React.FC<ITimerProps> = ({
@@ -33,7 +32,6 @@ const Timer: React.FC<ITimerProps> = ({
   numberTimes = 1,
   changeCountdownToggleFunction,
   changeMinutesConcentrationFunction,
-  changeRefreshButtonFunction,
 }) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -42,6 +40,12 @@ const Timer: React.FC<ITimerProps> = ({
   const [barForDots, setBarForDots] = useState([]);
   const [isInterval, setIsInterval] = useState(false);
   const [countWork, setCountWork] = useState(1);
+
+  useEffect(() => {
+    if (!countdownToggle && minutes !== minutesConcentration) {
+      setSeconds(0);
+    }
+  }, [minutes, countdownToggle, minutesConcentration]);
 
   useEffect(() => {
     setMinutes(minutesConcentration);
