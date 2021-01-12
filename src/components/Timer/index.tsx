@@ -23,6 +23,8 @@ interface ITimerProps {
   minutesConcentration: number;
   numberTimes: number;
   changeCountdownToggleFunction(state: boolean): void;
+  changeMinutesConcentrationFunction(minutes: number): void;
+  changeRefreshButtonFunction(): void;
 }
 
 const Timer: React.FC<ITimerProps> = ({
@@ -30,6 +32,8 @@ const Timer: React.FC<ITimerProps> = ({
   minutesConcentration = 25,
   numberTimes = 1,
   changeCountdownToggleFunction,
+  changeMinutesConcentrationFunction,
+  changeRefreshButtonFunction,
 }) => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -82,7 +86,6 @@ const Timer: React.FC<ITimerProps> = ({
           !secondsPlay &&
           !minutesPlay
         ) {
-          console.log('passei aqui no fim do intervalo');
           setCountdownToggle(false);
           countdownToggleInside = false;
           changeCountdownToggleFunction(false);
@@ -94,6 +97,7 @@ const Timer: React.FC<ITimerProps> = ({
           setSeconds(secondsPlay);
           minutesPlay = minutesConcentration;
           setMinutes(minutesPlay);
+          changeMinutesConcentrationFunction(minutesPlay);
           clearInterval(intervalofinterval);
         }
 
@@ -103,7 +107,6 @@ const Timer: React.FC<ITimerProps> = ({
           !secondsPlay &&
           !minutesPlay
         ) {
-          console.log('passei aqui no fim do trabalho');
           setCountdownToggle(false);
           countdownToggleInside = false;
           changeCountdownToggleFunction(false);
@@ -113,6 +116,7 @@ const Timer: React.FC<ITimerProps> = ({
           setSeconds(secondsPlay);
           minutesPlay = minutesInterval;
           setMinutes(minutesPlay);
+          changeMinutesConcentrationFunction(minutesPlay);
           clearInterval(intervalofinterval);
         }
         if (secondsPlay || (minutesPlay && countdownToggleInside)) {
@@ -123,6 +127,7 @@ const Timer: React.FC<ITimerProps> = ({
             setSeconds(secondsPlay);
             minutesPlay--;
             setMinutes(minutesPlay);
+            changeMinutesConcentrationFunction(minutesPlay);
           }
         }
       }, 1000);
@@ -139,6 +144,7 @@ const Timer: React.FC<ITimerProps> = ({
       isInterval,
       countdownToggle,
       countWork,
+      changeMinutesConcentrationFunction,
     ],
   );
 
