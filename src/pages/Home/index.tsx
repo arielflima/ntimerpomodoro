@@ -8,13 +8,13 @@ import ResetButton from '../../components/ResetButton';
 
 const Home: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [minutesConcentration, setMinutesConcentration] = useState(25);
+  const [minutesConcentration, setMinutesConcentration] = useState(1);
   const [
     minutesConcentrationFromSettings,
     setMinutesConcentrationFromSetting,
-  ] = useState(30);
-  const [minutesInterval, setMinutesInterval] = useState(1);
-  const [numberTimes, setNumberTimes] = useState(3);
+  ] = useState(1);
+  const [minutesInterval, setMinutesInterval] = useState(5);
+  const [numberTimes, setNumberTimes] = useState(4);
   const [countdownToggle, setCountdownToggle] = useState(false);
 
   useEffect(() => {
@@ -22,8 +22,11 @@ const Home: React.FC = () => {
   }, [minutesConcentrationFromSettings]);
 
   const handleResetButton = useCallback(() => {
+    if (countdownToggle) {
+      return;
+    }
     setMinutesConcentration(minutesConcentrationFromSettings);
-  }, [minutesConcentrationFromSettings]);
+  }, [minutesConcentrationFromSettings, countdownToggle]);
 
   const handleCountdownToggle = useCallback((state) => {
     setCountdownToggle(state);

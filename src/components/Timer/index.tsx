@@ -28,8 +28,8 @@ interface ITimerProps {
 
 const Timer: React.FC<ITimerProps> = ({
   minutesInterval = 5,
-  minutesConcentration = 25,
-  numberTimes = 1,
+  minutesConcentration = 5,
+  numberTimes = 4,
   changeCountdownToggleFunction,
   changeMinutesConcentrationFunction,
 }) => {
@@ -48,7 +48,9 @@ const Timer: React.FC<ITimerProps> = ({
   }, [minutes, countdownToggle, minutesConcentration]);
 
   useEffect(() => {
-    setMinutes(minutesConcentration);
+    !isInterval
+      ? setMinutes(minutesConcentration)
+      : setMinutes(minutesInterval);
 
     const dotsToBar = [];
     let i = 0;
@@ -69,7 +71,13 @@ const Timer: React.FC<ITimerProps> = ({
     }
 
     setBarForDots(dotsToBar);
-  }, [minutesConcentration, numberTimes, countWork, isInterval]);
+  }, [
+    minutesConcentration,
+    numberTimes,
+    countWork,
+    isInterval,
+    minutesInterval,
+  ]);
 
   const handleStart = useCallback(
     (
@@ -198,8 +206,6 @@ const Timer: React.FC<ITimerProps> = ({
           )}
         </LinearGradientStyledPlayStopToggleButton>
       </ContainerPlayStopToggleButton>
-
-      <PlayStopToggleButton />
     </Container>
   );
 };
